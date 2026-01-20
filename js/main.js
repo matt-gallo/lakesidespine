@@ -1,6 +1,6 @@
 // Lakeside Spine & Injury - Main JavaScript
 
-// FAQ Toggle Functionality
+// FAQ Toggle Functionality (Legacy - for accordion style)
 document.addEventListener('DOMContentLoaded', function() {
     const faqQuestions = document.querySelectorAll('.faq-question');
 
@@ -19,6 +19,31 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!isActive) {
                 faqItem.classList.add('active');
                 question.querySelector('.faq-toggle').textContent = '−';
+            }
+        });
+    });
+
+    // New FAQ Navigation with Numbered Buttons
+    const faqNavButtons = document.querySelectorAll('.faq-nav-btn');
+    const faqCards = document.querySelectorAll('.faq-card');
+
+    faqNavButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const faqNumber = button.getAttribute('data-faq');
+
+            // Remove active class from all buttons
+            faqNavButtons.forEach(btn => btn.classList.remove('active'));
+
+            // Add active class to clicked button
+            button.classList.add('active');
+
+            // Hide all FAQ cards
+            faqCards.forEach(card => card.classList.remove('active'));
+
+            // Show the selected FAQ card
+            const selectedCard = document.querySelector(`.faq-card[data-faq-id="${faqNumber}"]`);
+            if (selectedCard) {
+                selectedCard.classList.add('active');
             }
         });
     });
